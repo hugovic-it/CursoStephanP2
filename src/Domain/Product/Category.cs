@@ -1,7 +1,5 @@
-﻿namespace IWantApp.Domain.Product
+﻿namespace IWantApp.Domain.Product;
+public class Category : Entity
 {
-    public class Category : Entity
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }
