@@ -1,4 +1,5 @@
 using IWantApp.Endpoints.Categories;
+using IWantApp.Infra.Data;
 
 namespace IWantApp
 {
@@ -7,6 +8,7 @@ namespace IWantApp
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddSqlServer<ApplicationDbContext>(builder.Configuration["ConnectionString:IWantDb"]);
 
             builder.Services.AddAuthorization();
 
