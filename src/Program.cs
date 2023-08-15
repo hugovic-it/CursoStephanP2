@@ -1,4 +1,5 @@
 using IWantApp.Endpoints.Categories;
+using IWantApp.Endpoints.Employees;
 using IWantApp.Infra.Data;
 using Microsoft.AspNetCore.Identity;
 
@@ -10,7 +11,18 @@ namespace IWantApp
         {
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddSqlServer<ApplicationDbContext>(builder.Configuration["ConnectionString:IWantDb"]);
-            builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            //padrao com seguranca default
+            //builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            //padrao sem seguranca
+            builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => { 
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequiredLength = 3;
+            }) 
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddAuthorization();
@@ -30,9 +42,10 @@ namespace IWantApp
 
             app.UseAuthorization();
 
-            app.MapMethods(CategoryPost.Template,CategoryPost.Methods,CategoryPost.Handle);
+            app.MapMethods(CategoryPost.Template, CategoryPost.Methods, CategoryPost.Handle);
             app.MapMethods(CategoryGetAll.Template, CategoryGetAll.Methods, CategoryGetAll.Handle);
             app.MapMethods(CategoryPut.Template, CategoryPut.Methods, CategoryPut.Handle);
+            app.MapMethods(EmployeePost.Template, EmployeePost.Methods, EmployeePost.Handle);
 
             app.Run();
         }
