@@ -24,7 +24,7 @@ namespace IWantApp
                 options.Password.RequiredLength = 3;
             }) 
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            builder.Services.AddScoped<QueryAllUsersWithClaimName>();
             builder.Services.AddAuthorization();
 
             builder.Services.AddEndpointsApiExplorer();
