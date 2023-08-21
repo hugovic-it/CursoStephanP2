@@ -8,7 +8,7 @@ namespace IWantApp.Endpoints.Security;
 
 public class TokenPost
 {
-    public static string Template => "/employees";
+    public static string Template => "/token";
     public static string[] Methods => new string[] { HttpMethod.Post.ToString() };
     public static Delegate Handle => Action;
     public static IResult Action(LoginRequest loginRequest, UserManager<IdentityUser> userManager)
